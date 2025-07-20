@@ -6,9 +6,12 @@
     <title>复合选择器</title>
 </head>
 <style>
-    div span{
+    div>span{
         color: red
     }
+    /* div span{
+        color:green
+    } */
 </style>
 <body>
      <span> span 标签</span>
@@ -19,6 +22,17 @@
         <p>
             <span>
                 这是div的孙子
+            </span>
+        </p>
+     </div>
+
+     <div>
+        <span>
+            这是div的儿子标签
+        </span>
+        <p>
+            <span>
+                孙子
             </span>
         </p>
      </div>
