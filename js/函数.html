@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九九乘法表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        /* 表头样式 */
+        thead th {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* 行表头 */
+        tbody th {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* 数据单元格 */
+        td {
+            background: linear-gradient(135deg, #ddd6fe, #e0e7ff);
+            color: #4c1d95;
+            cursor: pointer;
+        }
+
+        /* 悬停效果 */
+        td:hover {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        /* 行悬停效果 */
+        tbody tr:hover td {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+        }
+
+        tbody tr:hover th {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            transform: scale(1.02);
+        }
+
+        /* 对角线单元格特殊样式 */
+        .diagonal {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: white !important;
+            font-weight: 700;
+        }
+
+        .diagonal:hover {
+            background: linear-gradient(135deg, #047857, #065f46) !important;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            th, td {
+                padding: 8px 4px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                padding: 6px 2px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .info {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>九九乘法表</h1>
+        
+        <div class="table-container">
+            <table id="multiplicationTable">
+                <thead>
+                    <tr>
+                        <th>×</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- 表格内容通过JavaScript生成 -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="info">
+            <p>悬停查看行高亮效果，点击单元格查看算式</p>
+        </div>
+    </div>
+
+    <script>
+        function generateTable() {
+            const tbody = document.getElementById('tableBody');
+            
+            // 生成9行数据
+            for (let i = 1; i <= 9; i++) {
+                const row = document.createElement('tr');
+                
+                // 行表头
+                const rowHeader = document.createElement('th');
+                rowHeader.textContent = i;
+                row.appendChild(rowHeader);
+                
+                // 生成9列数据
+                for (let j = 1; j <= 9; j++) {
+                    const cell = document.createElement('td');
+                    const result = i * j;
+                    cell.textContent = result;
+                    
+                    // 标记对角线
+                    if (i === j) {
+                        cell.classList.add('diagonal');
+                    }
+                    
+                    // 添加点击事件
+                    cell.addEventListener('click', function() {
+                        showFormula(i, j, result);
+                    });
+                    
+                    row.appendChild(cell);
+                }
+                
+                tbody.appendChild(row);
+            }
+        }
+
+        function showFormula(i, j, result) {
+            const popup = document.createElement('div');
+            popup.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 25px 35px;
+                border-radius: 15px;
+                font-size: 1.5rem;
+                font-weight: bold;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                text-align: center;
+                animation: popIn 0.3s ease-out;
+            `;
+            
+            popup.innerHTML = `
+                <div style="font-size: 2rem; margin-bottom: 10px;">${i} × ${j} = ${result}</div>
+                <div style="font-size: 1rem; opacity: 0.9;">第${i}行 第${j}列</div>
+            `;
+            
+            document.body.appendChild(popup);
+            
+            // 点击关闭
+            popup.addEventListener('click', () => {
+                popup.style.animation = 'popOut 0.3s ease-in forwards';
+                setTimeout(() => {
+                    document.body.removeChild(popup);
+                }, 300);
+            });
+            
+            // 3秒后自动关闭
+            setTimeout(() => {
+                if (document.body.contains(popup)) {
+                    popup.style.animation = 'popOut 0.3s ease-in forwards';
+                    setTimeout(() => {
+                        document.body.removeChild(popup);
+                    }, 300);
+                }
+            }, 3000);
+        }
+
+        // 添加动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes popIn {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.5);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+            }
+            
+            @keyframes popOut {
+                from {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.5);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 页面加载完成后生成表格
+        document.addEventListener('DOMContentLoaded', generateTable);
+    </script>
+</body>
+</html>

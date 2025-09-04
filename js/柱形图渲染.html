@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>柱状图示例</title>
+    <script src="https://unpkg.com/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chart-container {
+            width: 80%;
+            height: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['第1学度', '第2学度', '第3学度', '第4学度'],
+                datasets: [{
+                    label: '学度',
+                    data: [123, 156, 120, 210],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // 浅粉色
+                    borderColor: 'rgba(255, 99, 132, 1)', // 深粉色
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.raw + ' 件';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

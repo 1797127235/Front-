@@ -1,14 +1,286 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>注册表单</title>
+  <style>
+    :root{
+      --bg:#0f1226;
+      --card:#12162e80; /* translucent */
+      --text:#e5e7eb;
+      --muted:#a3a7b3;
+      --brand:#6aa0ff;
+      --brand-2:#7c5cff;
+      --error:#ff6b6b;
+      --ok:#19c37d;
+      --radius:16px;
+      --gap:14px;
+    }
+
+    * { box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(60rem 60rem at 20% -10%, #263069 0%, transparent 70%),
+        radial-gradient(50rem 50rem at 100% 0%, #3b2c6a 0%, transparent 70%),
+        radial-gradient(60rem 60rem at 0% 100%, #243b55 0%, transparent 60%),
+        var(--bg);
+      display:grid;
+      place-items:center;
+      padding: 32px 16px;
+    }
+
+    .container{
+      width:min(720px, 100%);
+      backdrop-filter: saturate(140%) blur(10px);
+      background: linear-gradient(180deg, #151a36cc, #10132a99),
+                  radial-gradient(1200px 400px at 100% -20%, #2e1b74, transparent),
+                  var(--card);
+      border:1px solid #ffffff22;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px #0008, inset 0 0 0 1px #ffffff12;
+      padding: clamp(18px, 4vw, 32px);
+    }
+
+    .header{
+      display:flex; align-items:center; gap:12px; margin-bottom: 12px;
+    }
+    .logo{
+      width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
+      background: conic-gradient(from 180deg, var(--brand), var(--brand-2));
+      color:white; font-weight:700; letter-spacing:1px;
+      box-shadow: 0 8px 20px #0006;
+    }
+    h1{ font-size: clamp(20px, 4vw, 26px); margin:0; }
+    p.sub{ color:var(--muted); margin: 4px 0 22px; }
+
+    form{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: var(--gap);
+    }
+    @media (max-width: 680px){
+      form{ grid-template-columns: 1fr; }
+    }
+
+    .field{ display:flex; flex-direction:column; gap:8px; }
+    .field.full{ grid-column: 1 / -1; }
+
+    label{ font-size: 14px; color:#cfd3dd; }
+
+    .control{
+      position:relative;
+    }
+    input, select{
+      width:100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background:#0e1130;
+      border:1px solid #ffffff1a;
+      color: var(--text);
+      outline: none;
+      transition: border .2s, box-shadow .2s, background .2s;
+    }
+    input::placeholder{ color:#8a8ea3; }
+
+    input:focus, select:focus{
+      border-color: #8ab4ff;
+      box-shadow: 0 0 0 3px #6aa0ff33;
+      background:#0d1138;
+    }
+
+    input:user-invalid{
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px #ff6b6b33;
+    }
+    input:user-valid{
+      border-color: var(--ok);
+      box-shadow: 0 0 0 3px #19c37d33;
+    }
+
+    small.help{ color:var(--muted); }
+
+    .row{ display:flex; align-items:center; gap:10px; flex-wrap: wrap; }
+
+    .checkbox{
+      display:flex; align-items:flex-start; gap:10px; font-size:14px; color:#cfd3dd;
+      background:#0e1130; border:1px solid #ffffff1a; border-radius:12px; padding:12px 14px;
+    }
+    .checkbox input{ width:auto; accent-color: var(--brand); }
+
+    .actions{
+      grid-column: 1 / -1; display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top: 6px;
+    }
+
+    .btn{
+      appearance: none; border:0; cursor:pointer; user-select:none;
+      border-radius: 12px; padding: 12px 16px; font-weight: 600;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:white;
+      box-shadow: 0 10px 24px #0006, inset 0 0 0 1px #ffffff22;
+      transition: transform .06s ease, filter .2s ease;
+    }
+    .btn:hover{ filter: brightness(1.05); }
+    .btn:active{ transform: translateY(1px); }
+
+    .link { color:#9ab7ff; text-decoration:none; }
+    .link:hover{ text-decoration:underline; }
+
+    /* Tiny badge for optional */
+    .optional{ color:#8a8ea3; font-weight:500; font-size: 12px; margin-left: 6px; }
+
+    /* Form footer */
+    .foot{ color:#9aa0b2; font-size: 14px; margin-top: 12px; }
+
+    /* Visually-hidden for a11y */
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  </style>
 </head>
 <body>
-    <!-- <script>
-        alert('hello world');
-    </script> -->
-    <script src="hello.js"></script>
+  <main class="container" role="main" aria-labelledby="title">
+    <div class="header">
+      <div class="logo" aria-hidden="true">R</div>
+      <div>
+        <h1 id="title">创建你的账号</h1>
+        <p class="sub">使用 HTML5 原生校验与 CSS 美化，示例仅供学习，可接入后端处理提交。</p>
+      </div>
+    </div>
+
+    <form action="#" method="post" novalidate>
+      <!-- 姓名 -->
+      <div class="field">
+        <label for="name">姓名</label>
+        <div class="control">
+          <input id="name" name="name" type="text" placeholder="例如：张三" required minlength="2" />
+        </div>
+        <small class="help">请输入 2 个及以上字符。</small>
+      </div>
+
+      <!-- 昵称（可选） -->
+      <div class="field">
+        <label for="nickname">昵称 <span class="optional">可选</span></label>
+        <div class="control">
+          <input id="nickname" name="nickname" type="text" placeholder="用于展示的名称" />
+        </div>
+      </div>
+
+      <!-- 邮箱 -->
+      <div class="field">
+        <label for="email">邮箱</label>
+        <div class="control">
+          <input id="email" name="email" type="email" placeholder="name@example.com" autocomplete="email" required />
+        </div>
+        <small class="help">将用于登录与找回密码。</small>
+      </div>
+
+      <!-- 手机号 -->
+      <div class="field">
+        <label for="phone">手机号 <span class="optional">可选</span></label>
+        <div class="control">
+          <input id="phone" name="phone" type="tel" placeholder="仅限数字" inputmode="numeric" pattern="[0-9]{8,15}" />
+        </div>
+        <small class="help">8–15 位数字。</small>
+      </div>
+
+      <!-- 密码 -->
+      <div class="field">
+        <label for="password">密码</label>
+        <div class="control">
+          <input id="password" name="password" type="password" placeholder="至少 8 位，含字母与数字" required minlength="8" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-={}\[\]:;\"'`~<>,.?/]{8,}" />
+        </div>
+        <small class="help">至少 8 位，且包含字母与数字。</small>
+      </div>
+
+      <!-- 确认密码 -->
+      <div class="field">
+        <label for="confirm">确认密码</label>
+        <div class="control">
+          <input id="confirm" name="confirm" type="password" placeholder="再次输入密码" required />
+        </div>
+        <small class="help">提交前需在后端验证两次密码一致。</small>
+      </div>
+
+      <!-- 性别 -->
+      <div class="field">
+        <label for="gender">性别 <span class="optional">可选</span></label>
+        <div class="control">
+          <select id="gender" name="gender">
+            <option value="">不透露</option>
+            <option value="male">男</option>
+            <option value="female">女</option>
+            <option value="other">其他</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 出生日期 -->
+      <div class="field">
+        <label for="dob">出生日期 <span class="optional">可选</span></label>
+        <div class="control">
+          <input id="dob" name="dob" type="date" />
+        </div>
+      </div>
+
+      <!-- 国家/地区 -->
+      <div class="field full">
+        <label for="country">国家/地区</label>
+        <div class="control">
+          <select id="country" name="country" required>
+            <option value="" disabled selected>请选择</option>
+            <option value="CN">中国大陆</option>
+            <option value="TW">中国台湾</option>
+            <option value="HK">中国香港</option>
+            <option value="MO">中国澳门</option>
+            <option value="US">美国</option>
+            <option value="JP">日本</option>
+            <option value="KR">韩国</option>
+            <option value="GB">英国</option>
+            <option value="FR">法国</option>
+            <option value="DE">德国</option>
+            <option value="OTHER">其他</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 服务条款 -->
+      <div class="field full">
+        <label class="sr-only" for="terms">同意条款</label>
+        <div class="checkbox">
+          <input id="terms" name="terms" type="checkbox" required />
+          <div>
+            我已阅读并同意 <a class="link" href="#">服务条款</a> 与 <a class="link" href="#">隐私政策</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 按钮与提示 -->
+      <div class="actions">
+        <button class="btn" type="submit">创建账号</button>
+        <div class="foot">已有账号？<a class="link" href="#">去登录</a></div>
+      </div>
+    </form>
+  </main>
+
+  <!-- 可选：前端轻量校验（只用于演示；生产环境请在后端再次校验） -->
+  <script>
+    (function(){
+      const form = document.querySelector('form');
+      const pwd = document.getElementById('password');
+      const confirm = document.getElementById('confirm');
+      form.addEventListener('submit', (e)=>{
+        if(pwd.value !== confirm.value){
+          e.preventDefault();
+          confirm.setCustomValidity('两次密码不一致');
+          confirm.reportValidity();
+        }else{
+          confirm.setCustomValidity('');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

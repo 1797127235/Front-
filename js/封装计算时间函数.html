@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let second = prompt('请输入秒数');
+
+        function gettime(t){
+            h=parseInt(t/3600%24);
+            m=parseInt(t/60%60);
+            s=parseInt(t%60);
+            return `${h}:${m}:${s}`;
+        }
+        console.log(gettime(second));
+    </script>
+</body>
+</html> 

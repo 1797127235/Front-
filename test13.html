@@ -1,21 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用户注册</title>
+  <style>
+    /* ========= 主题 & Reset ========= */
+    *,*::before,*::after{box-sizing:border-box}
+    :root{
+      --bg:#f7f9fc;
+      --card:#fff;
+      --text:#0f172a; /* slate-900 */
+      --muted:#64748b; /* slate-500 */
+      --primary:#2563eb; /* blue-600 */
+      --primary-600:#1d4ed8;
+      --border:#e2e8f0;
+      --ring:rgba(37,99,235,.35);
+      --shadow:0 18px 60px rgba(15,23,42,.10);
+      --radius:16px;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+      color:var(--text); background:
+        radial-gradient(1200px 600px at 10% 0%, #e0f2fe 0%, rgba(224,242,254,0) 60%),
+        radial-gradient(1000px 500px at 100% 0%, #e9d5ff 0%, rgba(233,213,255,0) 60%),
+        var(--bg);
+    }
+
+    /* ========= 布局 ========= */
+    .wrap{min-height:100%;display:grid;place-items:center;padding:40px 16px}
+    .card{width:100%;max-width:840px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .card__head{padding:28px 28px 12px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(37,99,235,.06),transparent)}
+    .title{margin:0;font-weight:700;font-size:clamp(20px,2.6vw,30px)}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:14px}
+    .card__body{padding:24px 28px 28px}
+
+    form{display:grid;gap:20px}
+    .grid-2{display:grid;gap:18px}
+    @media (min-width: 800px){.grid-2{grid-template-columns:1fr 1fr}}
+
+    /* ========= 表单控件 ========= */
+    .row{display:grid;gap:8px}
+    .label{font-size:14px;color:var(--muted)}
+    .control{position:relative}
+    .input,.textarea,.file{
+      width:100%;padding:12px 14px;font-size:15px;line-height:1.4;background:#fff;
+      border:1px solid var(--border);border-radius:12px;outline:none;transition:border-color .2s,box-shadow .2s,transform .06s
+    }
+    .input::placeholder{color:#94a3b8}
+    .input:focus,.textarea:focus,.file:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)}
+    .input:active{transform:translateY(1px)}
+    .textarea{min-height:120px;resize:vertical}
+    .desc{font-size:12px;color:#94a3b8}
+
+    .inline{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;cursor:pointer;user-select:none;transition:border-color .2s,box-shadow .2s}
+    .chip input{appearance:none;width:16px;height:16px;border:2px solid var(--border);border-radius:50%;display:grid;place-items:center}
+    .chip input[type="radio"]:checked{border-color:var(--primary);box-shadow:0 0 0 3px var(--ring)}
+    .chip input[type="checkbox"]{border-radius:6px}
+    .chip input[type="checkbox"]:checked{background:var(--primary);border-color:var(--primary);box-shadow:0 0 0 3px var(--ring)}
+
+    .actions{display:flex;gap:12px;justify-content:flex-end;padding-top:6px}
+    .btn{appearance:none;border:1px solid var(--border);background:#fff;color:var(--text);padding:10px 16px;font-size:15px;border-radius:12px;cursor:pointer;transition:transform .06s,border-color .2s,box-shadow .2s,background .2s}
+    .btn:hover{border-color:#cbd5e1;box-shadow:0 8px 24px rgba(15,23,42,.08)}
+    .btn:active{transform:translateY(1px)}
+    .btn--primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .btn--primary:hover{background:var(--primary-600);border-color:var(--primary-600)}
+
+    /* 小提示条 */
+    .help{display:flex;gap:8px;align-items:center;font-size:12px;color:#475569}
+    .help b{color:var(--primary)}
+  </style>
 </head>
 <body>
-   用户名:<input type="text" placeholder="请输入用户名">
-   <br>
-   密 码:<input type="password" name="password" placeholder="请输入密码">
-   <br>
-   性别 : <input type="radio" name="sex" value="男" checked="true">男
-   <br>
-   文件: <input type="file" multiple>
-   <br>
-   兴趣爱好:<input type="checkbox" value="HTML" checked="true">HTML
-   <input type="checkbox" value="CSS" checked="true">CSS
-   <input type="checkbox" value="JS" checked="true">JS
+  <div class="wrap">
+    <section class="card" role="region" aria-labelledby="title">
+      <header class="card__head">
+        <h1 id="title" class="title">用户注册</h1>
+        <p class="subtitle">请填写以下信息完成注册。</p>
+      </header>
+
+      <div class="card__body">
+        <!-- 说明：整合了两处重复“性别”，并保留了所有字段。可直接提交到你的后端。 -->
+        <form action="#" method="post" novalidate>
+          <div class="grid-2">
+            <div class="row">
+              <label class="label" for="username">用户名</label>
+              <div class="control">
+                <input class="input" id="username" name="username" type="text" placeholder="请输入用户名" minlength="2" maxlength="20" required />
+              </div>
+              <p class="desc">长度 2–20 个字符，支持中英文与数字。</p>
+            </div>
+
+            <div class="row">
+              <label class="label" for="password">密码</label>
+              <div class="control">
+                <input class="input" id="password" name="password" type="password" placeholder="请输入密码" minlength="6" required />
+              </div>
+              <p class="desc">至少 6 位，建议包含字母与数字。</p>
+            </div>
+
+            <div class="row">
+              <label class="label" for="email">邮箱</label>
+              <input class="input" id="email" name="email" type="email" placeholder="请输入邮箱" />
+            </div>
+
+            <div class="row">
+              <label class="label" for="tel">手机号</label>
+              <input class="input" id="tel" name="tel" type="tel" placeholder="请输入手机号" />
+            </div>
+          </div>
+
+          <div class="row">
+            <span class="label">性别</span>
+            <div class="inline" role="radiogroup" aria-label="性别">
+              <label class="chip"><input type="radio" name="sex" value="男" checked>男</label>
+              <label class="chip"><input type="radio" name="sex" value="女">女</label>
+              <label class="chip"><input type="radio" name="sex" value="保密">保密</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="label" for="file">文件</label>
+            <input class="file" id="file" name="file" type="file" multiple>
+            <p class="desc">可一次选择多个文件上传</p>
+          </div>
+
+          <div class="row">
+            <span class="label">兴趣爱好</span>
+            <div class="inline" role="group" aria-label="兴趣爱好">
+              <label class="chip"><input type="checkbox" name="hobby" value="HTML" checked>HTML</label>
+              <label class="chip"><input type="checkbox" name="hobby" value="CSS" checked>CSS</label>
+              <label class="chip"><input type="checkbox" name="hobby" value="JS" checked>JS</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="label" for="remark">备注</label>
+            <textarea class="textarea" id="remark" name="remark" placeholder="补充说明…"></textarea>
+            <p class="help">按 <b>Shift + Enter</b> 换行</p>
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="reset">重置</button>
+            <button class="btn btn--primary" type="submit">提交注册</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
 </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       const fn= ()=>{
+        console.log('箭头函数');
+       }
+
+       const add = (a,b)=>{
+        return a+b;
+       }
+
+       console.log(add(1,2)); 
+
+       //箭头函数省略写法
+       const p= x=> x*x;
+       
+
+       const state = ()=>(
+        {
+            name:'张三',
+            age:18
+        }
+       )
+
+       //应用
+       //既可以用于函数声明,也可以用于回调函数传参
+
+       setTimeout(function(){
+        console.log('定时器');
+       },1000)
+
+       setTimeout(()=>{
+        console.log('定时器');
+       },1000)
+
+       //箭头函数没有this,所以不能作为构造函数
+
+       console.log(p(2));
+    </script>
+</body>
+</html>
