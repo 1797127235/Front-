@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const obj ={
+            id:1001,
+            name:'张三',
+            age:18,
+            sex:'男',
+            address:'北京',
+            sayHello:function(){
+                console.log('hello');
+            }
+        }
+
+        // Object.keys(obj).forEach((key)=>{
+        //     console.log(obj[key]);
+        // })
+
+
+
+        //只遍历obj中以字母a开头的属性
+        // Object.keys(obj).forEach((key)=>{
+        //     if(key.startsWith('a')){
+        //         console.log(obj[key]);
+        //     }
+        // })
+
+        // const newArr = Object.keys(obj).filter((key)=>{
+        //     return key.startsWith('a');
+        // })
+        // console.log(newArr);
+
+        Object.keys(obj).filter((key)=>key.startsWith('a')).forEach((key)=>{
+            console.log(obj[key]);
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const json ={
+            "id":1001,  
+            "name":"张三",
+            "age":18,
+            "sex":"男",
+            "address":"北京"
+        }
+
+        //序列化
+        const str = JSON.stringify(json);
+        console.log(str);
+        
+        //反序列化
+        const obj = JSON.parse(str);
+        console.log(obj);
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //解构赋值时,用于收集余下所有的
+        //复制数组或对象
+        //合并数组或对象
+
+        //复制数组或对象
+        const arr = [1,2,3,4,5];
+        const newArr1 = [...arr];
+        console.log(newArr1);
+
+
+        //合并数组或对象    
+        const arr1 = [1,2,3];
+        const arr2 = [4,5,6];
+        const newArr2 = [...arr1,...arr2];
+        console.log(newArr2);
+
+        //合并对象
+        const obj1 = {name:'张三',age:18};
+        const obj2 = {sex:'男',address:'北京'};
+        const newObj = {...obj1,...obj2};
+        console.log(newObj);
+    </script>
+</body>
+</html>

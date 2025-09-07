@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-    <!-- <form action="">
-        姓名<input type="text" name="username" id="username">
-        <br>
-        密码<input type="password" name="password" id="password">
-        <br>
-        <input type="submit" value="登录">
-    </form> -->
-    <!-- <form action="https://edu.bitejiuyeke.com/index">
-        课程:<input type="text" name="course" id="course">
-        <input type="submit">
-        <input type="reset">
-    </form> -->
+    <div id="app">
+        <!-- 声明式渲染 -->
+        <p>计数: {{ count }}</p>
+        <button @click="increment">增加</button>
+    </div>
 
-    <label>
-        <input type="radio">男
-    </label>
-    <label>
-        <input type="radio">女
-    </label>
+    <script>
+        const { ref } = Vue
+        
+        Vue.createApp({
+            setup() {
+                const count = ref(0)
+                
+                function increment() {
+                    count.value++
+                }
+                
+                return {
+                    count,
+                    increment
+                }
+            }
+        }).mount('#app') //渲染到app节点
+    </script>
 </body>
 </html>

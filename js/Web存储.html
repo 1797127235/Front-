@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //存
+        localStorage.setItem('name','张三');
+        localStorage.setItem('age',18);
+        localStorage.setItem('sex','男');
+        localStorage.setItem('address','北京');
+
+        //取
+        const name = localStorage.getItem('name');
+
+        //删
+        localStorage.removeItem('name');
+
+
+        //如果要在本地存储数组或对象,必须经过序列化和反序列化
+
+         const obj ={
+            id:1001,
+            name:'张三',
+            age:18,
+            sex:'男',
+            address:'北京'
+         }
+
+         const str = JSON.stringify(obj);
+         localStorage.setItem('obj',str);
+
+
+         //取 反序列化
+         const obj2 = JSON.parse(localStorage.getItem('obj'));
+         console.log(obj2);
+    </script>
+</body>
+</html>

@@ -1,38 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-        const arr=[11,22,33,44]
-        for(let i=0;i<arr.length;i++){
-            console.log(arr[i]);
-        }
+        const arr = [11, 22, 33, 44]
+        // for(let i=0;i<arr.length;i++){
+        //     console.log(arr[i]);
+        // }
 
-        //数组遍历操作
-        arr.forEach((item,index,arr)=>{
-            console.log(item,index);
-        })
-
-
-        //数组筛选
-        arr.filter((item)=>{
-            if(item%2==0){
-                return true;
-            }
-            return false;
-        })
+        // //数组遍历操作
+        // arr.forEach((item,index,arr)=>{
+        //     console.log(item,index);
+        // })
 
 
-        arr.map((item,index,array)=>{
-            return item*2;
-        })
+        // //数组筛选
+        // arr.filter((item)=>{
+        //     if(item%2==0){
+        //         return true;
+        //     }
+        //     return false;
+        // })
 
+
+        // const newArr = arr.map((item,index,array)=>{
+        //     return {index,item}
+        // })
+        // console.log(newArr);
+
+
+        //reduce 汇总函数
+        // const newArr = arr.reduce((prev,cur,index,array)=>{
+        //     return prev+cur;
+        // },0)
+        // console.log(newArr);
+
+        const goods = [
+            { id: 1, name: '篮球', num: 1 },
+            { id: 2, name: '足球', num: 2 },
+            { id: 3, name: '排球', num: 3 },
+            { id: 4, name: '乒乓球', num: 4 },
+            { id: 5, name: '羽毛球', num: 5 }
+        ];
+
+        const sum=goods.reduce((prev,cur,index,array)=>{
+            return prev+cur.num;
+        },0)
+        
+        console.log(sum);
 
 
     </script>
 </body>
+
 </html>

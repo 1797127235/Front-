@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+    //     const p=new Promise((resolve,reject)=>{
+    //         //包装异步代码,例如定时器,ajax请求
+    //         //resolve:成功时调用
+    //         //reject:失败时调用
+    //         setTimeout(()=>{
+    //             resolve('成功');
+    //         },2000);
+    //     })
+
+
+    //     p.then((result)=>{
+    //         console.log(result);
+    //     }).catch((error)=>{
+    //         console.log(error);
+    //     })
+
+    //     setTimeout(()=>{
+    //         console.log('1');
+    //         setTimeout(()=>{
+    //             console.log('2')
+    //             setTimeout(()=>{
+    //                 console.log('3')
+    //             },1000)
+    //         },1000)
+    //     },1000)
+
+    //     setTimeout(()=>{
+    //         console.log('1');
+    //     },3000)
+
+    //     setTimeout(()=>{
+    //         console.log('1');
+    //     },3000)
+
+
+    //     setTimeout(()=>{
+    //         console.log('1');
+    //     },3000)
+    
+    //     function delay(ms, value) {
+    // return new Promise(resolve => {
+    //     setTimeout(() => resolve(value), ms);
+    //     });
+    // }
+
+    // 使用链式调用
+    // function delay(duration,val){
+    //     return new Promise((resolve,reject)=>{
+    //         setTimeout(()=>{
+    //             resolve(val)
+    //         },duration)
+    //     })
+    // }
+
+    // delay(2000,1).then(result=>{
+    //     console.log(result)
+    //     return delay(2000,2)
+    // })
+    // .then(result=>{
+    //     console.log(result)
+    //     return delay(2000,3)
+    // })
+    // .then(result=>{
+    //     console.log(result);
+    //     return delay(2000,4)
+    // })
+
+
+    // 使用async/await
+    function delay1(duration,val){
+        return new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve(val)
+            },duration)
+        })
+    }
+
+    async function test(){
+        const result1=await delay1(2000,1)
+        console.log(result1)
+        const result2=await delay1(2000,2)
+        console.log(result2)
+        const result3=await delay1(2000,3)
+        console.log(result3)
+    }
+    test()
+
+
+
+
+    </script>
+</body>
+</html>
